@@ -8,7 +8,7 @@ const config = {
     STACK: process.env.STACK,
     CAT_FACTS_API_ENDPOINT: process.env.CAT_FACTS_API_ENDPOINT || "https://catfact.ninja/fact",
     PORT: Number(process.env.PORT) || 3000,
-    CAT_FACTS_API_TIMEOUT: Number(process.env.CAT_FACTS_API_TIMEOUT) || 5000   
+    CAT_FACTS_API_TIMEOUT: Number(process.env.CAT_FACTS_API_TIMEOUT) || 10000   
 };
 
 if (!config.EMAIL || !config.NAME || !config.STACK) {
@@ -16,5 +16,5 @@ if (!config.EMAIL || !config.NAME || !config.STACK) {
     process.exit(1);
 };
 
-export default config;
+export { config };
 
