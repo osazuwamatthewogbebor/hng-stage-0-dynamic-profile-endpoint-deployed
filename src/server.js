@@ -1,23 +1,44 @@
 import express from 'express';
-import { config } from './config/index.js';
+
+import cors from 'cors';
 import morgan from 'morgan';
-import { getCatFact } from './utils/catFacts.js';
-import errorHandler from './middleware/errorHandler.js';
-import corsHeader from './middleware/corsHeader.js';
-import meRouteHandler from './controllers/meRouteHandler.js';
+import helmet from 'helmet';
+
+import { config } from './config/index.js';
+import { ratelimiter } from './config/rateLimiter.js';
+
+import errorHandler, { route404Handler } from './middleware/errorHandlers.js';
+import meRoute from "./routes/meRoute.js";
+
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocs from './config/swaggerConfig.js';
+
 
 const app = express();
 const port = config.PORT;
 
-// Request logger
-app.use(morgan('tiny'));
+app.use(helmet());
+app.use(morgan('combined'));
 
-// Cors setup
-app.use(corsHeader);
+app.use(cors({
+    origin: '*',
+    methods: 'GET',
+    credentials: true
+}));
 
+
+// Rate limiter
+app.use(ratelimiter);
 
 // GET /me endpoint
-app.get('/me', meRouteHandler);
+app.use('/me', meRoute);
+
+// API docs
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+
+// 404 handler
+app.use(route404Handler);
 
 // Globalerror handler
 app.use(errorHandler);

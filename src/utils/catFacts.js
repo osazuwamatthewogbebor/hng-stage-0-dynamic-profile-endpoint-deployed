@@ -10,19 +10,21 @@ export const getCatFact = async () => {
         });
 
         if (response.data && response.data.fact) {
+            console.log("Cat Fact fetched successfully.")
             return response.data.fact;
         } else {
             console.error("External API returned unexpected data structure.");
-            return "Failed to fetch cat fact: External API structure error.";
+            
+            return "Cat Fact not available right now. But hey, Cats are Awesome!";
         };
 
     } catch (error) {
         if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
             console.error("Cat Facts API Timeout:", error.message);
         } else {
-            console.error("Error fetching cat fact (Network/Unknown):", error.message);
+            console.error(`Error fetching cat fact (Network/Unknown): ${error.message}`);
         };
 
-        return "Failed to retrieve a dynamic cat fact due to a sserrvice error/timeout.";  
+        return "Cat Fact not available right now. But hey, Cats are Awesome!";  
     };
 };
