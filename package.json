@@ -5,7 +5,6 @@
   "main": "server.js",
   "scripts": {
     "dev": "node --watch src/server.js",
-    "test": "jest",
     "start": "node src/server.js"
   },
   "keywords": [],

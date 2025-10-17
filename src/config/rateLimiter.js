@@ -4,7 +4,7 @@ export const ratelimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 50,
     message: {
-        error: 'Too many requests from this IP address',
+        error: 'Too many requests from this IP address, please try again later.',
         retryAfter: '15 minutes'
     },
     standardHeaders: true,

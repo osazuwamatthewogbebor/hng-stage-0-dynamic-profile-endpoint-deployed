@@ -4,9 +4,9 @@ import { config } from "./index.js";
 const swaggerDefinition = {
     openapi: '3.0.0',
     info: {
-        title: 'Dynamic Profile',
+        title: 'Dynamic Profile API',
         version: '1.0.0',
-        description: 'API documentation using Swagger',
+        description: 'API documentation using Swagger UI',
     },
     servers: [
         {
