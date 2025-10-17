@@ -11,6 +11,17 @@ This project demonstrates key backend skills such as working with external APIs,
 * Includes **rate limiting** to prevent abuse  
 * Automatically documents endpoints via **Swagger UI**  
 * Organized with **Express Router** and modular architecture  
+* Dynamic timestamp generation (UTC ISO 8601 format)
+* Cat facts integration from https://catfact.ninja/fact
+* Error handling for external API failures
+* Timeout handling for API requests (10 seconds)
+* CORS enabled for cross-origin requests
+* Rate limiting (100 requests per 15 minutes per IP)
+* Request logging for debugging
+* GET /: Endpoint with API and endpoint information
+* GET /me: Endpoint with profile, dynamic cat facts and current timestamp
+* GET /health: Endpoint for API health check and current timestamp
+* GET /docs: Endpoint for Swagger Documentation
 
 ---
 
@@ -108,6 +119,35 @@ http://localhost:3000
 ---
 
 ## API Endpoints
+
+### **GET /**
+
+Retrieves:
+
+* Message
+* Health endpoint
+* Dynamic profile endpoint
+* Documentation endpoint
+
+#### Example Response:
+
+```json
+{
+  "message": "HNG Stage-0 Backend Task - Dynamic Profile Endpoint",
+  "healthCheck": "You can always go to /health endpoint to check API health status",
+  "dynamic profile": "Go to /me endpoint to get profile with dynamic cat facts",
+  "documentation": "Go to /docs endpoint for Swagger docs and API usage guidelines"
+}
+```
+
+#### Error Response (500)
+
+```json
+{
+  "status": "error",
+  "message": "An unexpected internal server error occurred."
+}
+```
 
 ### **GET /me**
 

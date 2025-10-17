@@ -34,6 +34,15 @@ app.use(ratelimiter);
 
 // Endpoints
 
+app.get('/', (req, res) => {
+    res.status(200).json({
+        "message": "HNG Stage-0 Backend Task - Dynamic Profile Endpoint",
+        "healthCheck": "You can always go to /health endpoint to check API health status",
+        "dynamic profile": "Go to /me endpoint to get profile with dynamic cat facts",
+        "documentation": "Go to /docs endpoint for Swagger docs and API usage guidelines"
+    });
+});
+
     // API health 
 app.use('/health', healthRoute);
 
