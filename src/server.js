@@ -9,6 +9,7 @@ import { ratelimiter } from './config/rateLimiter.js';
 
 import errorHandler, { route404Handler } from './middleware/errorHandlers.js';
 import meRoute from "./routes/meRoute.js";
+import healthRoute from "./routes/healthRoute.js";
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocs from './config/swaggerConfig.js';
@@ -30,17 +31,25 @@ app.use(cors({
 // Rate limiter
 app.use(ratelimiter);
 
-// GET /me endpoint
+
+// Endpoints
+
+    // API health 
+app.use('/health', healthRoute);
+
+    // GET /me endpoint
 app.use('/me', meRoute);
 
-// API docs
+    // API docs
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
-// 404 handler
+// Error handlers
+    
+    // 404 handler
 app.use(route404Handler);
 
-// Globalerror handler
+    // Globalerror handler
 app.use(errorHandler);
 
 app.listen(port, () => {

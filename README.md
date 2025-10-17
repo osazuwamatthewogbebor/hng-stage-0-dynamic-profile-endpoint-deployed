@@ -22,8 +22,10 @@ project/
 ├── src/
 │   ├── routes/
 │   │   └── meRoute.js
+│   │   └── healthRoute.js
 │   ├── controllers/
 │   │   └── meRouteController.js
+│   │   └── healthController.js
 │   ├── middlewares/
 │   │   └── errorHandler.js
 │   ├── config/
@@ -32,6 +34,7 @@ project/
 │   │   └── swaggerConfig.js
 │   ├── utils/
 │   │   └── catFacts.js
+│   │   └── getTimeISO.js
 │   └── server.js
 ├── .env
 ├── .env.example
@@ -110,6 +113,7 @@ http://localhost:3000
 
 Retrieves:
 
+* Status
 * Developer profile
 * Current UTC timestamp (ISO 8601 format)
 * A random cat fact from the [Cat Fact API](https://catfact.ninja/fact)
@@ -126,6 +130,33 @@ Retrieves:
   },
   "timestamp": "2025-10-17T11:45:30.123Z",
   "fact": "Cats sleep 16 to 18 hours per day."
+}
+```
+
+#### Error Response (500)
+
+```json
+{
+  "status": "error",
+  "message": "An unexpected internal server error occurred."
+}
+```
+
+### **GET /health**
+
+Retrieves:
+
+* Status
+* Health message
+* Current UTC timestamp (ISO 8601 format)
+
+#### Example Response:
+
+```json
+{
+  "status": "success",
+  "message": "API is running"
+  "timestamp": "2025-10-17T11:45:30.123Z",
 }
 ```
 

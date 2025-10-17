@@ -1,9 +1,11 @@
 import { config } from "../config/index.js";
 import { getCatFact } from "../utils/catFacts.js";
+import getTimeISO from "../utils/getTimeISO.js";
+
 
 export default async (req, res) => {
     const catFact = await getCatFact();
-    const curentTimeStamp = new Date().toISOString();
+    const curentTimeStamp = getTimeISO;
 
     const profile = {
         status: "success",
