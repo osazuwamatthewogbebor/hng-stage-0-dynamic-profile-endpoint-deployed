@@ -1,8 +1,7 @@
 # Dynamic Profile API
 
-An **Express.js API** that returns a **developer profile**, **current timestamp**, and a **random cat fact** from an external API.  
-It demonstrates RESTful design, external API consumption, structured JSON responses, rate limiting, and OpenAPI (Swagger) documentation.
-
+A RESTful API built with **Express.js API** that returns a **developer profile**, **current timestamp**, and a **random cat fact** from an external API.  
+This project demonstrates key backend skills such as working with external APIs, structured JSON responses, Swagger documentation, and rate limiting.
 ---
 
 ## Features
@@ -45,6 +44,24 @@ project/
 
 ---
 
+## Dependencies
+### Stack: Node.js/Express
+
+| Package                | Purpose                     |
+| ---------------------- | --------------------------- |
+| **express**            | Web framework               |
+| **axios**              | Fetch external cat facts    |
+| **express-rate-limit** | Prevent API abuse           |
+| **swagger-jsdoc**      | Auto-generate Swagger specs |
+| **swagger-ui-express** | Serve Swagger UI            |
+| **dotenv**             | Environment variables       |
+| **helmet**             | Security                    |
+| **morgan**             | Request logging             |
+| **cors**               | Cross Origin                |
+
+
+---
+
 ## ⚙️ Installation & Local Setup
 
 ### 1. Clone the repository
@@ -72,7 +89,6 @@ CAT_FACT_API_URL="https://catfact.ninja/fact"
 PORT=3000
 CAT_FACTS_API_TIMEOUT="API TIMEOUT"
 ```
-
 
 ### 4. Start the server
 
@@ -122,11 +138,17 @@ Retrieves:
 }
 ```
 
+### GET /docs
+Opens Swagger documentation
+
 ---
 
 ## Rate Limiting
 
 To prevent abuse, the API uses **rate limiting** middleware.
+
+By default, the API allows 100 requests per 15 minutes per IP.
+If you exceed this limit, you’ll receive a 429 Too Many Requests response.
 
 | Configuration | Value (example) |
 | ------------- | --------------- |
@@ -141,7 +163,12 @@ If a user exceeds the limit:
 }
 ```
 
+You can adjust this in your rate limiter in config folder:
+```
+windowMs: 15 * 60 * 1000, // 15 minutes
+max: 100, // requests
 ---
+```
 
 ## Swagger Documentation
 
@@ -154,63 +181,21 @@ Once the server is running, open your browser and go to:
 ```
 http://localhost:3000/docs
 ```
+You can interact with the /me route directly from your browser.
 
 You’ll see the `/me` route fully documented — including request, response schemas, and example outputs.
-
-### Example Swagger Configuration (in `src/docs/swagger.js`):
-
-```js
-import swaggerJSDoc from "swagger-jsdoc";
-import { config } from "../config/index.js";
-
-const swaggerOptions = {
-  swaggerDefinition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Dynamic Profile API",
-      version: "1.0.0",
-      description: "API documentation using Swagger UI",
-    },
-    servers: [
-      {
-        url: `http://localhost:${config.PORT}`,
-        description: "Development server",
-      },
-    ],
-  },
-  apis: ["./src/routes/*.js"],
-};
-
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
-export default swaggerDocs;
-```
-
----
-
-## Dependencies
-
-| Package                | Purpose                     |
-| ---------------------- | --------------------------- |
-| **express**            | Web framework               |
-| **axios**              | Fetch external cat facts    |
-| **express-rate-limit** | Prevent API abuse           |
-| **swagger-jsdoc**      | Auto-generate Swagger specs |
-| **swagger-ui-express** | Serve Swagger UI            |
-| **dotenv**             | Environment variables       |
-| **helmet**             | Security                    |
-| **morgan**             | Request logging             |
-| **cors**               | Cross Origin                |
-
 
 ---
 
 ## Author
 
 **Osazuwa Ogbebor**
+
 HNG Internship: Backend Development Stage 0 Task
+
+Project: Dynamic Profile API
 
 ---
 
 ## License
-
 MIT License © 2025 Osazuwa Ogbebor
