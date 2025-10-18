@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: Dynamic Profile API
+  description: API for retrieving developer's data, dynamic cat facts and current timestamp
+  version: 1.0.0
+tags:
+  name: Profile
+  description: Dynamic Profile Retrieval
+  name: Health
+  description: API Health Status
+servers:
+  - url: http://localhost:3000
+paths:
+  /:
+    get:
+      summary: "Root endpoint"
+      description: "Returns a API endpoints"
+      responses:
+        '200':
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - message
+                  - healthCheck
+                  - dynamic profile
+                  - documentation
+                properties:
+                  message:
+                    type: string
+                    example: HNG Stage-0 Backend Task - Dynamic Profile Endpoint
+                  healthCheck:
+                    type: string
+                    example: You can always go to /health endpoint to check API health status
+                  dynamic profile:
+                    type: string
+                    example: Go to /me endpoint to get profile with dynamic cat facts
+                  documentation:
+                    type: string
+                    example: Go to /docs endpoint for Swagger docs and API usage guidelines
+   
+  /me:
+    get:
+      tags:
+          - Profile
+      summary: Retrieve dynamic profile, current timestamp, and a fresh cat fact.
+      description: Returns the developer's profile, a current timestamp IN ISO 8601 format, and a random cat fact from an external API.
+      responses:
+        200:
+          description: Successful retrieval of the dynamic profile.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - user
+                  - timestamp
+                  - fact
+                properties:
+                  status:
+                    type: string
+                    enum: [success]
+                    description: Must always be "success".
+                  user:
+                    type: object
+                    description: User profile details.
+                    properties:
+                      email:
+                        type: string
+                        format: email
+                        example: john.doe@example.com
+                      name:
+                        type: string
+                        example: John Doe
+                      stack:
+                        type: string
+                        example: Python/FastAPI
+                  timestamp:
+                    type: string
+                    format: date-time
+                    description: Current UTC time in ISO 8601 format. Updates on every request.
+                    example: 2025-10-17T11:45:30.123Z
+                  fact:
+                    type: string
+                    description: A cat fact fetched from the external Cat Facts API (or a fallback message if the API fails).
+                    example: "The average cat sleeps 16 to 18 hours per day."
+ 
+        500:
+          description: An unexpected internal server error occurred.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [error]
+                  message:
+                    type: string
+                    example: An unexpected internal server error occurred.
+  /health:
+    get:
+      tags:
+          - Health
+      summary: Check API health
+      description: Returns the API health status and a current timestamp IN ISO 8601 format..
+      responses:
+        200:
+          description: API is up and running.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - meassage
+                  - timestamp
+                properties:
+                  status:
+                    type: string
+                    enum: [success]
+                  message:
+                    type: string
+                    description: API health details.
+                    example: API is running.
+                  timestamp:
+                    type: string
+                    format: date-time
+                    description: Current UTC time in ISO 8601 format. Updates on every request.
+                    example: 2025-10-17T11:45:30.123Z
+        500:
+          description: An unexpected internal server error occurred.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [error]
+                  message:
+                    type: string
+                    example: An unexpected internal server error occurred.
+ 
