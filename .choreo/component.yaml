@@ -1,0 +1,12 @@
+schemaVersion: "1.2"
+endpoints:
+    - name: dynamic-profile-api-197
+      displayName: Dynamic Profile API
+      service:
+        basePath: /
+        port: 3000
+      type: REST
+      networkVisibilities:
+        - Project
+        - Public
+      schemaFilePath: openapi.yaml
