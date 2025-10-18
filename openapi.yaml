@@ -3,11 +3,6 @@ info:
   title: Dynamic Profile API
   description: API for retrieving developer's data, dynamic cat facts and current timestamp
   version: 1.0.0
-tags:
-  name: Profile
-  description: Dynamic Profile Retrieval
-  name: Health
-  description: API Health Status
 servers:
   - url: http://localhost:3000
 paths:
